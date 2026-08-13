@@ -1,0 +1,72 @@
+table factMovies
+	lineageTag: c5cdfc93-8ea1-4424-bbd8-470a36495bc7
+
+	measure 'Total Movies' = COUNT(factMovies[movieId])
+		formatString: 0
+		lineageTag: d046d754-b6a1-4c02-9e6c-8c510b3e2b53
+
+	column movieId
+		dataType: int64
+		formatString: 0
+		lineageTag: ad354719-ca0f-4d6a-99c2-fa9b5ff61a3e
+		summarizeBy: none
+		sourceColumn: movieId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Movies_Title
+		dataType: string
+		lineageTag: 612135c7-c2f3-4093-be44-d85b46c2665f
+		summarizeBy: none
+		sourceColumn: Movies_Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DimGenres.Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 56654554-880a-48e4-bac1-4aca27c46fe5
+		summarizeBy: none
+		sourceColumn: DimGenres.Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DimYears.Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 08d62d66-b0de-48d1-988f-0e0675ef2e0a
+		summarizeBy: none
+		sourceColumn: DimYears.Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ratings.userId'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f2f0ad4-3420-4e14-b692-09fad0d3998e
+		summarizeBy: count
+		sourceColumn: Ratings.userId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition factMovies = m
+		mode: import
+		source =
+				let
+				    Source = Movies,
+				    #"Merged Queries" = Table.NestedJoin(Source, {"genres"}, DimGenres, {"genres"}, "DimGenres", JoinKind.LeftOuter),
+				    #"Expanded DimGenres" = Table.ExpandTableColumn(#"Merged Queries", "DimGenres", {"Index"}, {"DimGenres.Index"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Expanded DimGenres",{"genres"}),
+				    #"Merged Queries1" = Table.NestedJoin(#"Removed Columns", {"Years"}, DimYears, {"Years"}, "DimYears", JoinKind.LeftOuter),
+				    #"Expanded DimYears" = Table.ExpandTableColumn(#"Merged Queries1", "DimYears", {"Index"}, {"DimYears.Index"}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Expanded DimYears",{"Years"}),
+				    #"Merged Queries2" = Table.NestedJoin(#"Removed Columns1", {"movieId"}, Ratings, {"movieId"}, "Ratings", JoinKind.LeftOuter),
+				    #"Expanded Ratings" = Table.ExpandTableColumn(#"Merged Queries2", "Ratings", {"userId"}, {"Ratings.userId"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Ratings", each ([Ratings.userId] = 1))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

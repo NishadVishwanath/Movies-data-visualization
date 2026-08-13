@@ -1,0 +1,67 @@
+table Ratings
+	lineageTag: c9d5b5d6-9c96-4f15-9757-ddc6e486a4d8
+
+	measure 'Total Average Rating' = AVERAGE(Ratings[rating])
+		lineageTag: 4b207d73-d7f3-4c61-b660-2d99ee20abe7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Uniqe User' = DISTINCTCOUNT(Ratings[userId])
+		formatString: 0
+		lineageTag: cbd53aca-a054-4db4-8e72-e597101a1e2d
+
+	measure 'Total Users' = COUNT(Ratings[userId])
+		formatString: 0
+		lineageTag: 2ecd5132-6c07-40f8-88a5-f13842469848
+
+	column userId
+		dataType: int64
+		formatString: 0
+		lineageTag: 50321d3a-8067-4671-8568-5bf1a21b80d4
+		summarizeBy: count
+		sourceColumn: userId
+
+		annotation SummarizationSetBy = Automatic
+
+	column movieId
+		dataType: int64
+		formatString: 0
+		lineageTag: a23740e6-6f2a-4c93-ae73-e2934da4f5ba
+		summarizeBy: none
+		sourceColumn: movieId
+
+		annotation SummarizationSetBy = Automatic
+
+	column rating
+		dataType: double
+		lineageTag: 6f7d1d84-9f14-4218-b18a-649cd4912613
+		summarizeBy: sum
+		sourceColumn: rating
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column timestamp
+		dataType: int64
+		formatString: 0
+		lineageTag: 7de1fa91-1f06-4ebc-9d91-f0b25378acef
+		summarizeBy: sum
+		sourceColumn: timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ratings = m
+		mode: import
+		source =
+				let
+				  Source = Sql.Database("localhost", "MoviesDB"),
+				  #"Navigation 1" = Source{[Schema = "dbo", Item = "Ratings"]}[Data],
+				    #"Removed Duplicates" = Table.Distinct(#"Navigation 1")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

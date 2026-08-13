@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 729.38305001469371,
+            "y": 382
+          },
+          "nodeIndex": "Ratings",
+          "nodeLineageTag": "c9d5b5d6-9c96-4f15-9757-ddc6e486a4d8",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 58
+          },
+          "nodeIndex": "DimGenres",
+          "nodeLineageTag": "059640f1-7dc1-4d26-9394-062475ba33c9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 674.2015611931854,
+            "y": 0
+          },
+          "nodeIndex": "DimYears",
+          "nodeLineageTag": "27c091f7-da4e-4601-b410-7c2b76d49497",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 333,
+            "y": 163
+          },
+          "nodeIndex": "factMovies",
+          "nodeLineageTag": "c5cdfc93-8ea1-4424-bbd8-470a36495bc7",
+          "size": {
+            "height": 262,
+            "width": 234
+          },
+          "zIndex": 2
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": true,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

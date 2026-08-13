@@ -1,0 +1,63 @@
+table DimGenres
+	lineageTag: 059640f1-7dc1-4d26-9394-062475ba33c9
+
+	measure 'Total Genres' = COUNT(DimGenres[genres])
+		formatString: 0
+		lineageTag: f78ce078-bcc0-40e7-a043-6b0892224a4b
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 925b6b37-51fa-4035-ac72-bb745393d333
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column genres
+		dataType: string
+		lineageTag: 09b8904b-9ba8-41b1-87bc-e2438388d420
+		summarizeBy: none
+		sourceColumn: genres
+
+		annotation SummarizationSetBy = Automatic
+
+	column Count
+		dataType: int64
+		formatString: 0
+		lineageTag: 83bf56fa-5a3f-4acf-b538-9f5f1dd79daa
+		summarizeBy: none
+		sourceColumn: Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Genre Rank' =
+			
+			RANKX(
+			    ALL(DimGenres),
+			    CALCULATE(MAX(DimGenres[Count])),
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: df2624d9-70a0-40bd-ad0a-71963c264618
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimGenres = m
+		mode: import
+		source =
+				let
+				    Source = Movies,
+				    #"Grouped Rows" = Table.Group(Source, {"genres"}, {{"Count", each Table.RowCount(_), Int64.Type}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Grouped Rows", "Index", 1, 1, Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "genres", "Count"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

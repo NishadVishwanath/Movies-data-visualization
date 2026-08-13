@@ -1,0 +1,45 @@
+table DimYears
+	lineageTag: 27c091f7-da4e-4601-b410-7c2b76d49497
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 376bdc7f-7282-4ee2-9479-766853914219
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column Years
+		dataType: int64
+		formatString: 0
+		lineageTag: 77af5e44-e8f7-48fa-b933-e57c1c62f917
+		summarizeBy: none
+		sourceColumn: Years
+
+		annotation SummarizationSetBy = Automatic
+
+	column Count
+		dataType: int64
+		formatString: 0
+		lineageTag: 96ac3b74-72b0-4606-a22d-1ececf77bf2c
+		summarizeBy: none
+		sourceColumn: Count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimYears = m
+		mode: import
+		source =
+				let
+				    Source = Movies,
+				    #"Grouped Rows" = Table.Group(Source, {"Years"}, {{"Count", each Table.RowCount(_), Int64.Type}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Grouped Rows", "Index", 1, 1, Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "Years", "Count"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

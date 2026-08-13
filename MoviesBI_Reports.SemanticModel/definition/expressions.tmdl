@@ -1,0 +1,25 @@
+expression Movies =
+		let
+		  Source = Sql.Database("localhost", "MoviesDB"),
+		  #"Navigation 1" = Source{[Schema = "dbo", Item = "Movies"]}[Data],
+		    #"Split Column by Delimiter" = Table.ExpandListColumn(Table.TransformColumns(#"Navigation 1", {{"genres", Splitter.SplitTextByDelimiter("|", QuoteStyle.Csv), let itemType = (type nullable text) meta [Serialized.Text = true] in type {itemType}}}), "genres"),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"genres", type text}}),
+		    #"Extracted Year" = Table.TransformColumns(#"Changed Type",{{"Years", Date.Year, Int64.Type}}),
+		    #"Trimmed Text" = Table.TransformColumns(Table.TransformColumnTypes(#"Extracted Year", {{"Years", type text}}, "en-US"),{{"Years", Text.Trim, type text}}),
+		    #"Cleaned Text" = Table.TransformColumns(#"Trimmed Text",{{"Years", Text.Clean, type text}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Cleaned Text",{{"Years", type date}}),
+		    #"Extracted Year1" = Table.TransformColumns(#"Changed Type1",{{"Years", Date.Year, Int64.Type}}),
+		    #"Trimmed Text1" = Table.TransformColumns(#"Extracted Year1",{{"genres", Text.Trim, type text}}),
+		    #"Cleaned Text1" = Table.TransformColumns(#"Trimmed Text1",{{"genres", Text.Clean, type text}}),
+		    #"Capitalized Each Word" = Table.TransformColumns(#"Cleaned Text1",{{"genres", Text.Proper, type text}}),
+		    #"Trimmed Text2" = Table.TransformColumns(#"Capitalized Each Word",{{"Movies_Title", Text.Trim, type text}}),
+		    #"Cleaned Text2" = Table.TransformColumns(#"Trimmed Text2",{{"Movies_Title", Text.Clean, type text}}),
+		    #"Capitalized Each Word1" = Table.TransformColumns(#"Cleaned Text2",{{"Movies_Title", Text.Proper, type text}})
+		in
+		    #"Capitalized Each Word1"
+	lineageTag: 7bccb1d4-4ce1-4172-91a4-0457e14da691
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,14 @@
+relationship 881f73cf-e69c-f0c5-5f87-81d14b489ea3
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: Ratings.movieId
+	toColumn: factMovies.movieId
+
+relationship 2a804a2c-a856-b517-570c-3c95ae847e7e
+	fromColumn: factMovies.'DimGenres.Index'
+	toColumn: DimGenres.Index
+
+relationship eb3acf50-8cd2-7daf-3f45-6516b386b2fe
+	fromColumn: factMovies.'DimYears.Index'
+	toColumn: DimYears.Index
+
