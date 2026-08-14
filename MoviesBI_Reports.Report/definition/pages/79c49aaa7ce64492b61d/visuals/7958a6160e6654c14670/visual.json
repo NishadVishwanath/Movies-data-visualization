@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "a53a8b893822d567e940",
+  "name": "7958a6160e6654c14670",
   "position": {
     "x": 0,
     "y": 0,
-    "z": 1000,
-    "height": 332,
-    "width": 400,
-    "tabOrder": 1000
+    "z": 1,
+    "height": 354.8354430379747,
+    "width": 427.746835443038,
+    "tabOrder": 1
   },
   "visual": {
     "visualType": "cardVisual",
@@ -20,34 +20,19 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Ratings"
+                      "Entity": "DimGenres"
                     }
                   },
-                  "Property": "Total Uniqe User"
+                  "Property": "Top Genre KPI"
                 }
               },
-              "queryRef": "Ratings.Total Uniqe User",
-              "nativeQueryRef": "Total Uniqe User"
+              "queryRef": "DimGenres.Top Genre KPI",
+              "nativeQueryRef": "Top Genre KPI"
             }
           ]
         }
       },
       "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Ratings"
-                  }
-                },
-                "Property": "Total Uniqe User"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
         "isDefaultSort": true
       }
     },
@@ -144,16 +129,27 @@
         },
         {
           "properties": {
-            "labelDisplayUnits": {
+            "textWrap": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "true"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "Ratings.Total Uniqe User"
+            "metadata": "DimGenres.Top Genre KPI"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
           }
         }
       ],
@@ -198,6 +194,20 @@
           },
           "selector": {
             "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DimGenres.Top Genre KPI"
           }
         }
       ],
@@ -624,7 +634,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -753,7 +763,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Total Unique Users Count'"
+                  "Value": "'Top Genres'"
                 }
               }
             },
@@ -933,15 +943,15 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "49b66d6ad0a84c781993",
+        "name": "0ee3e73c95ba96464504",
         "field": {
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Ratings"
+                "Entity": "DimGenres"
               }
             },
-            "Property": "Total Uniqe User"
+            "Property": "Top Genre KPI"
           }
         },
         "type": "Advanced"

@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "a53a8b893822d567e940",
+  "name": "6dd53c1022c4544bdcb2",
   "position": {
     "x": 0,
-    "y": 0,
-    "z": 1000,
-    "height": 332,
-    "width": 400,
-    "tabOrder": 1000
+    "y": 354.8354430379747,
+    "z": 2,
+    "height": 380.75949367088606,
+    "width": 427.746835443038,
+    "tabOrder": 2
   },
   "visual": {
     "visualType": "cardVisual",
@@ -20,34 +20,19 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Ratings"
+                      "Entity": "DimGenres"
                     }
                   },
-                  "Property": "Total Uniqe User"
+                  "Property": "Lowest Rated Genre KPI"
                 }
               },
-              "queryRef": "Ratings.Total Uniqe User",
-              "nativeQueryRef": "Total Uniqe User"
+              "queryRef": "DimGenres.Lowest Rated Genre KPI",
+              "nativeQueryRef": "Lowest Rated Genre KPI"
             }
           ]
         }
       },
       "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Ratings"
-                  }
-                },
-                "Property": "Total Uniqe User"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
         "isDefaultSort": true
       }
     },
@@ -144,16 +129,16 @@
         },
         {
           "properties": {
-            "labelDisplayUnits": {
+            "textWrap": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "true"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "Ratings.Total Uniqe User"
+            "metadata": "DimGenres.Lowest Rated Genre KPI"
           }
         }
       ],
@@ -624,7 +609,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -753,7 +738,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Total Unique Users Count'"
+                  "Value": "'Lowest Rated Genres'"
                 }
               }
             },
@@ -933,15 +918,15 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "49b66d6ad0a84c781993",
+        "name": "ed0e3333c0ebd983c8cd",
         "field": {
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Ratings"
+                "Entity": "DimGenres"
               }
             },
-            "Property": "Total Uniqe User"
+            "Property": "Lowest Rated Genre KPI"
           }
         },
         "type": "Advanced"

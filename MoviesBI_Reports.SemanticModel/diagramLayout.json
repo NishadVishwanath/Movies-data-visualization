@@ -59,6 +59,18 @@
             "width": 234
           },
           "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1013.3830500146937,
+            "y": 179
+          },
+          "nodeIndex": "Top 10 Movies",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

@@ -5,6 +5,52 @@ table DimGenres
 		formatString: 0
 		lineageTag: f78ce078-bcc0-40e7-a043-6b0892224a4b
 
+	measure 'Genres Rank' =
+			
+			RANKX(
+			    ALL(DimGenres),
+			    CALCULATE(MAX(DimGenres[Count])),
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 298ba567-da61-4fd5-9234-a7038161764e
+
+	measure 'Top Genre KPI' =
+			
+			VAR TopGenre =
+			    TOPN(
+			        1,
+			        ALL(DimGenres[genres]),
+			        [Total Movies],
+			        DESC
+			    )
+			VAR GenreName =
+			    CONCATENATEX(TopGenre, DimGenres[genres], ", ")
+			VAR MovieCount =
+			    MAXX(TopGenre, [Total Movies])
+			RETURN
+			    GenreName & " (" & FORMAT(MovieCount, "#,##0") & " Movies)"
+		lineageTag: bc80669f-9ae8-4896-9e65-04b798cd9bc8
+
+	measure 'Lowest Rated Genre KPI' =
+			
+			VAR LowestGenre =
+			    TOPN(
+			        1,
+			        ALL(DimGenres[genres]),
+			        [Average of Total Rating],
+			        ASC
+			    )
+			VAR GenreName =
+			    CONCATENATEX(LowestGenre, DimGenres[genres], ", ")
+			VAR Rating =
+			    MAXX(LowestGenre, [Average of Total Rating])
+			RETURN
+			    GenreName & " (" & FORMAT(Rating, "0.00") & ")"
+		lineageTag: 21566066-7ceb-4c10-b8d7-88f41d54a3cf
+
 	column Index
 		dataType: int64
 		formatString: 0
@@ -31,21 +77,6 @@ table DimGenres
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Genre Rank' =
-			
-			RANKX(
-			    ALL(DimGenres),
-			    CALCULATE(MAX(DimGenres[Count])),
-			    ,
-			    DESC,
-			    Dense
-			)
-		formatString: 0
-		lineageTag: df2624d9-70a0-40bd-ad0a-71963c264618
-		summarizeBy: none
-
-		annotation SummarizationSetBy = Automatic
-
 	partition DimGenres = m
 		mode: import
 		source =
@@ -53,9 +84,10 @@ table DimGenres
 				    Source = Movies,
 				    #"Grouped Rows" = Table.Group(Source, {"genres"}, {{"Count", each Table.RowCount(_), Int64.Type}}),
 				    #"Added Index" = Table.AddIndexColumn(#"Grouped Rows", "Index", 1, 1, Int64.Type),
-				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "genres", "Count"})
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "genres", "Count"}),
+				    #"Removed Bottom Rows" = Table.RemoveLastN(#"Reordered Columns",1)
 				in
-				    #"Reordered Columns"
+				    #"Removed Bottom Rows"
 
 	annotation PBI_NavigationStepName = Navigation
 

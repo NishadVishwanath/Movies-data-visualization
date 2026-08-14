@@ -23,7 +23,7 @@
                       "Entity": "Ratings"
                     }
                   },
-                  "Property": "Total Average Rating"
+                  "Property": "Average of Total Rating"
                 }
               },
               "queryRef": "Ratings.Total Rating",
@@ -42,7 +42,7 @@
                     "Entity": "Ratings"
                   }
                 },
-                "Property": "Total Average Rating"
+                "Property": "Average of Total Rating"
               }
             },
             "direction": "Descending"

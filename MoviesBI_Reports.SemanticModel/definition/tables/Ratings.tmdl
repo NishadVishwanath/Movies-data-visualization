@@ -1,7 +1,7 @@
 table Ratings
 	lineageTag: c9d5b5d6-9c96-4f15-9757-ddc6e486a4d8
 
-	measure 'Total Average Rating' = AVERAGE(Ratings[rating])
+	measure 'Average of Total Rating' = AVERAGE(Ratings[rating])
 		lineageTag: 4b207d73-d7f3-4c61-b660-2d99ee20abe7
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -13,6 +13,25 @@ table Ratings
 	measure 'Total Users' = COUNT(Ratings[userId])
 		formatString: 0
 		lineageTag: 2ecd5132-6c07-40f8-88a5-f13842469848
+
+	measure 'Count of Total Rating' = COUNT(Ratings[rating])
+		formatString: 0
+		lineageTag: c4cbb1bc-b8c0-4108-adf2-7da5a0de07d8
+
+	measure 'Qualified Average Rating' =
+			
+			IF(
+			    [Count of Total Rating] >= 50,
+			    [Average of Total Rating]
+			)
+		lineageTag: c1b735a2-9848-46dd-b65e-b55df16e5d21
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sum of total rating' = SUM(Ratings[rating])
+		lineageTag: 99d371ab-52ea-4d1e-aaee-1cd519954647
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column userId
 		dataType: int64

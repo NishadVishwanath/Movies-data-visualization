@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "000f060bcb099ebe0308",
   "position": {
-    "x": 0,
+    "x": 427.746835443038,
     "y": 0,
     "z": 0,
-    "height": 744.02378592666,
-    "width": 896.25371655104061,
+    "height": 1080.7088607594937,
+    "width": 1492.253164556962,
     "tabOrder": 0
   },
   "visual": {
@@ -31,6 +31,12 @@
               "active": true
             }
           ]
+        },
+        "Series": {
+          "projections": []
+        },
+        "Tooltips": {
+          "projections": []
         },
         "Y": {
           "projections": [
@@ -143,6 +149,39 @@
               "expr": {
                 "Literal": {
                   "Value": "1D"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            },
+            "titleBold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }
@@ -268,5 +307,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b849f3a0049b402b7426",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimGenres"
+              }
+            },
+            "Property": "genres"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }
