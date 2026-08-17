@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "484a105c30324433a193",
+  "position": {
+    "x": -1.6630306398943213,
+    "y": 377.969846453137,
+    "z": 0,
+    "height": 700,
+    "width": 600,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGenres"
+                    }
+                  },
+                  "Property": "genres"
+                }
+              },
+              "queryRef": "DimGenres.genres",
+              "nativeQueryRef": "genres",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "factMovies"
+                    }
+                  },
+                  "Property": "Count of Total Movies"
+                }
+              },
+              "queryRef": "factMovies.Count of Total Movies",
+              "nativeQueryRef": "Count of Total Movies"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "factMovies"
+                  }
+                },
+                "Property": "Count of Total Movies"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

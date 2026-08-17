@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "a3c194c2224c03201c37",
+  "displayName": "Time Trend Analysis 3",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920
+}

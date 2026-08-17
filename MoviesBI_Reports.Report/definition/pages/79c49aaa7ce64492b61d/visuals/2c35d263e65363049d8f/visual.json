@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "2c35d263e65363049d8f",
+  "position": {
+    "x": 1296.4524421593831,
+    "y": 378.40616966580978,
+    "z": 2000,
+    "height": 700,
+    "width": 600,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGenres"
+                    }
+                  },
+                  "Property": "genres"
+                }
+              },
+              "queryRef": "DimGenres.genres",
+              "nativeQueryRef": "genres",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ratings"
+                    }
+                  },
+                  "Property": "Sum of Rating"
+                }
+              },
+              "queryRef": "Ratings.Sum of Rating",
+              "nativeQueryRef": "Sum of Rating"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Ratings"
+                  }
+                },
+                "Property": "Sum of Rating"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

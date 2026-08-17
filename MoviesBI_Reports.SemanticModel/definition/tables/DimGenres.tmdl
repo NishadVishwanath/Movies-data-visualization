@@ -1,55 +1,23 @@
 table DimGenres
 	lineageTag: 059640f1-7dc1-4d26-9394-062475ba33c9
 
-	measure 'Total Genres' = COUNT(DimGenres[genres])
-		formatString: 0
-		lineageTag: f78ce078-bcc0-40e7-a043-6b0892224a4b
+	measure 'Count Of Genres' = COUNT(DimGenres[genres])
+		lineageTag: 11c11205-6be3-440f-af81-a50405e22f3d
 
-	measure 'Genres Rank' =
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Genres %' =
 			
-			RANKX(
-			    ALL(DimGenres),
-			    CALCULATE(MAX(DimGenres[Count])),
-			    ,
-			    DESC,
-			    Dense
+			DIVIDE(
+			    [Count Of Total Movies],
+			    CALCULATE(
+			        [Count Of Total Movies],
+			        REMOVEFILTERS(DimGenres[genres])
+			    ),
+			    0
 			)
-		formatString: 0
-		lineageTag: 298ba567-da61-4fd5-9234-a7038161764e
-
-	measure 'Top Genre KPI' =
-			
-			VAR TopGenre =
-			    TOPN(
-			        1,
-			        ALL(DimGenres[genres]),
-			        [Total Movies],
-			        DESC
-			    )
-			VAR GenreName =
-			    CONCATENATEX(TopGenre, DimGenres[genres], ", ")
-			VAR MovieCount =
-			    MAXX(TopGenre, [Total Movies])
-			RETURN
-			    GenreName & " (" & FORMAT(MovieCount, "#,##0") & " Movies)"
-		lineageTag: bc80669f-9ae8-4896-9e65-04b798cd9bc8
-
-	measure 'Lowest Rated Genre KPI' =
-			
-			VAR LowestGenre =
-			    TOPN(
-			        1,
-			        ALL(DimGenres[genres]),
-			        [Average of Total Rating],
-			        ASC
-			    )
-			VAR GenreName =
-			    CONCATENATEX(LowestGenre, DimGenres[genres], ", ")
-			VAR Rating =
-			    MAXX(LowestGenre, [Average of Total Rating])
-			RETURN
-			    GenreName & " (" & FORMAT(Rating, "0.00") & ")"
-		lineageTag: 21566066-7ceb-4c10-b8d7-88f41d54a3cf
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d53351f7-9df4-4b26-855c-6d76269e275d
 
 	column Index
 		dataType: int64

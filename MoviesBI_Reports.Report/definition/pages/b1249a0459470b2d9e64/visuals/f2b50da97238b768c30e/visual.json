@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "f2b50da97238b768c30e",
+  "position": {
+    "x": 982.36893203883483,
+    "y": 523.80582524271836,
+    "z": 2001,
+    "height": 487,
+    "width": 878,
+    "tabOrder": 2001
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimYears"
+                    }
+                  },
+                  "Property": "Years"
+                }
+              },
+              "queryRef": "DimYears.Years",
+              "nativeQueryRef": "Years",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ratings"
+                    }
+                  },
+                  "Property": "Average Of Rating"
+                }
+              },
+              "queryRef": "Ratings.Average Of Rating",
+              "nativeQueryRef": "Average Of Rating"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Ratings"
+                  }
+                },
+                "Property": "Average Of Rating"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "axisType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Scalar'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c2a6ae3dd7a33d4c60d3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimYears"
+              }
+            },
+            "Property": "Years"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "877da1881c1af225d4c5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Ratings"
+              }
+            },
+            "Property": "Average Of Rating"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

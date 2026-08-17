@@ -1,38 +1,9 @@
 table factMovies
 	lineageTag: c5cdfc93-8ea1-4424-bbd8-470a36495bc7
 
-	measure 'Total Movies' = COUNT(factMovies[movieId])
+	measure 'Count of Total Movies' = COUNT(factMovies[movieId])
 		formatString: 0
-		lineageTag: d046d754-b6a1-4c02-9e6c-8c510b3e2b53
-
-	measure 'Top Movie Rank by sum' = ```
-			
-			RANKX(
-			    ALL(factMovies[Movies_Title]),
-			    [Sum of total rating],
-			    ,
-			    DESC,
-			    DENSE
-			)
-			
-			```
-		formatString: 0
-		lineageTag: 7f00afe8-c220-47f1-91cd-291b55a204c6
-
-	measure 'Movies Rank by Count' =
-			
-			RANKX(
-			    FILTER(
-			        ALLSELECTED(factMovies[Movies_Title]),
-			        [Count of Total Rating] >= 1
-			    ),
-			    [Count of Total Rating],
-			    ,
-			    DESC,
-			    DENSE
-			)
-		formatString: 0
-		lineageTag: 63bd5b41-d24a-4e7b-8530-90bf52879797
+		lineageTag: aad6b066-3eff-4528-9690-ea13949b81c6
 
 	column movieId
 		dataType: int64
@@ -49,7 +20,7 @@ table factMovies
 		summarizeBy: none
 		sourceColumn: Movies_Title
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column 'DimGenres.Index'
 		dataType: int64

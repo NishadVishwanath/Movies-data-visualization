@@ -11,13 +11,13 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "Custom11937047799206957.json",
+      "name": "Bloom",
       "reportVersionAtImport": {
         "visual": "2.11.0",
         "report": "3.4.0",
         "page": "2.3.1"
       },
-      "type": "RegisteredResources"
+      "type": "SharedResources"
     }
   },
   "objects": {
@@ -40,7 +40,14 @@
           "expanded": {
             "expr": {
               "Literal": {
-                "Value": "false"
+                "Value": "true"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
               }
             }
           }
@@ -54,20 +61,14 @@
       "type": "SharedResources",
       "items": [
         {
+          "name": "Bloom",
+          "path": "BuiltInThemes/Bloom.json",
+          "type": "CustomTheme"
+        },
+        {
           "name": "Fluent2-CY26SU07",
           "path": "BaseThemes/Fluent2-CY26SU07.json",
           "type": "BaseTheme"
-        }
-      ]
-    },
-    {
-      "name": "RegisteredResources",
-      "type": "RegisteredResources",
-      "items": [
-        {
-          "name": "Custom11937047799206957.json",
-          "path": "Custom11937047799206957.json",
-          "type": "CustomTheme"
         }
       ]
     }
@@ -78,6 +79,10 @@
     "defaultDrillFilterOtherVisuals": true,
     "allowChangeFilterTypes": true,
     "useEnhancedTooltips": true,
-    "useDefaultAggregateDisplayName": true
+    "useScaledTooltips": true,
+    "useDefaultAggregateDisplayName": true,
+    "queryLimitOption": "None",
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
   }
 }
